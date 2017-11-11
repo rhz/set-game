@@ -1,0 +1,175 @@
+\documentclass[letterpaper]{article}
+\usepackage[margin=.35in]{geometry}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{pgffor}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,patterns}
+\usepackage{nopageno}
+
+\begin{document}
+
+\newcommand{\patlen}{.04in}
+\pgfdeclarepatternformonly{stripes}
+{\pgfpointorigin}{\pgfpoint{\patlen}{\patlen}}
+{\pgfpoint{\patlen}{\patlen}}
+{
+  \pgfpathmoveto{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{0}{\patlen}}
+  \pgfpathlineto{\pgfpoint{.2*\patlen}{\patlen}}
+  \pgfpathlineto{\pgfpoint{.2*\patlen}{0}}
+  \pgfpathclose%
+  \pgfusepath{fill}
+}
+
+\makeatletter
+% \dimendef\my@xa=0
+% \dimendef\my@ya=0
+% \dimendef\my@xb=0
+% \dimendef\my@yb=0
+% \dimendef\my@xc=0
+% \dimendef\my@yc=0
+\pgfdeclareshape{squiggle}{
+  \inheritsavedanchors[from=rectangle]
+  \inheritanchorborder[from=rectangle]
+  \inheritanchor[from=rectangle]{center}
+  \inheritanchor[from=rectangle]{south west}
+  \inheritanchor[from=rectangle]{north east}
+  \backgroundpath{
+    \southwest
+    \pgfmathsetlengthmacro\my@xa{\pgf@x}
+    \pgfmathsetlengthmacro\my@ya{\pgf@y}
+    \northeast
+    \pgfmathsetlengthmacro\my@xb{\pgf@x}
+    \pgfmathsetlengthmacro\my@yb{\pgf@y}
+    % main path
+    \pgfpathmoveto{\pgfpoint{\my@xa}{\my@ya}}
+    \pgfpathcurveto{
+      % assuming the centre of the rectangle is 0,0
+      \pgfpoint{1.1*\my@xa}{\my@ya/3}}{
+      \pgfpoint{0.9*\my@xa}{\my@yb/3}}{
+      \pgfpoint{\my@xa}{\my@yb}}
+    \pgfpathlineto{\pgfpoint{\my@xb}{\my@yb}}
+    \pgfpathlineto{\pgfpoint{\my@xb}{\my@ya}}
+    \pgfpathclose
+    % % \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+    % % \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+    % \southwest
+    % % \edef\my@xa{\pgf@x}
+    % % \edef\my@ya{\pgf@y}
+    % % \dimendef\my@xa=\pgf@x
+    % % \dimendef\my@ya=\pgf@y
+    % \pgfmathsetlength\my@xa{\pgf@x}
+    % \pgfmathsetlength\my@ya{\pgf@y}
+    % \northeast
+    % % \edef\my@xb{\pgf@x}
+    % % \edef\my@yb{\pgf@y}
+    % % \dimendef\my@xb=\pgf@x
+    % % \dimendef\my@yb=\pgf@y
+    % \pgfmathsetlength\my@xb{\pgf@x}
+    % \pgfmathsetlength\my@yb{\pgf@y}
+    % % northwest
+    % % \pgf@xc=\pgf@xa
+    % % \pgf@yc=.8\pgf@yb
+    % % \edef\my@xc{\pgf@xa}
+    % % \edef\my@yc{.8*\pgf@yb}
+    % % \dimendef\my@xc=\my@xa
+    % % \dimendef\my@yc=.8\my@yb
+    % \pgfmathsetlength\my@xc{\my@xa}
+    % \pgfmathsetlength\my@yc{.8\my@yb}
+    % % first half of the path
+    % \pgfpathmoveto{
+    %   \pgfpoint{\my@xa}{\my@ya}}
+    % \pgfpathcurveto{
+    %   \pgfpoint{1.1*\my@xa}{1.1*\my@ya}}{
+    %   \pgfpoint{1.1*\my@xc}{\my@yc}}{
+    %   \pgfpoint{\my@xc}{\my@yc}}
+    % \pgfpathcurveto{
+    %   \pgfpoint{\my@xc}{1.1*\my@yc}}{
+    %   \pgfpoint{\my@xb}{0.9*\my@yc}}{
+    %   \pgfpoint{\my@xb}{\my@yb}}
+    % % southeast
+    % % \pgf@xc=\pgf@xb
+    % % \pgf@yc=.8\pgf@ya
+    % % \edef\my@xc{\pgf@xb}
+    % % \edef\my@yc{.8*\pgf@ya}
+    % % \dimendef\my@xc=\my@xb
+    % % \dimendef\my@yc=.8\my@ya
+    % \pgfmathsetlength\my@xc{\my@xb}
+    % \pgfmathsetlength\my@yc{.8\my@ya}
+    % % second half of the path
+    % \pgfpathcurveto{
+    %   \pgfpoint{1.1*\my@xb}{1.1*\my@yb}}{
+    %   \pgfpoint{1.1*\my@xc}{\my@yc}}{
+    %   \pgfpoint{\my@xc}{\my@yc}}
+    % \pgfpathcurveto{
+    %   \pgfpoint{\my@xc}{1.1*\my@yc}}{
+    %   \pgfpoint{\my@xa}{0.9*\my@yc}}{
+    %   \pgfpoint{\my@xa}{\my@ya}}
+    % \pgfpathclose
+  }
+}
+\makeatother
+
+\definecolor{SetRed}{RGB}{255,0,115}
+\definecolor{SetGreen}{RGB}{45,203,60}
+\definecolor{SetPurple}{RGB}{99,95,199}
+
+\tikzstyle{card}=[draw,thick,rounded corners=.1in,
+  minimum width=1.75in,minimum height=2.5in]
+
+% Shapes
+\tikzstyle{symb}=[draw,line width=2pt,
+  minimum width=.9in,minimum height=.4in]
+\tikzstyle{oval}=[symb,rectangle,rounded corners=.2in]
+\tikzstyle{diam}=[symb,diamond,rounded corners=.01in]
+\tikzstyle{squiggle}=[symb,shape=squiggle,rounded corners=0]
+% Colours and fillings
+\tikzstyle{rw}=[draw=SetRed,fill=White]
+\tikzstyle{gw}=[draw=SetGreen,fill=White]
+\tikzstyle{pw}=[draw=SetPurple,fill=White]
+\tikzstyle{rf}=[draw=SetRed,fill=SetRed]
+\tikzstyle{gf}=[draw=SetGreen,fill=SetGreen]
+\tikzstyle{pf}=[draw=SetPurple,fill=SetPurple]
+\tikzstyle{rs}=[draw=SetRed,pattern=stripes,pattern color=SetRed]
+\tikzstyle{gs}=[draw=SetGreen,pattern=stripes,pattern color=SetGreen]
+\tikzstyle{ps}=[draw=SetPurple,pattern=stripes,pattern color=SetPurple]
+
+\noindent\foreach \shape in {oval,diam,squiggle} {
+  \begin{tikzpicture}
+    \foreach \num in {1,2,3} {
+      \foreach \colour [count=\ci] in {rw,gw,pw} {
+        \node[card] at (\num*2in,\ci*2.75in) {\tikz{
+            \foreach \i in {1,...,\num} {
+              \node[\shape,\colour] at (0,\i*.6in) {};}}};
+      }
+      \node[card] at (8in,\num*2.75in) {\tikz{
+          \foreach \i in {1,...,\num} {
+            \node[\shape,rf] at (0,\i*.6in) {};}}};
+      \node[card,rotate=90] at (\num*2.65in-.3in,.25in) {\tikz{
+          \foreach \i in {1,...,\num} {
+            \node[\shape,gf] at (0,\i*.6in) {};}}};
+    }
+  \end{tikzpicture}
+  \newline
+  \begin{tikzpicture}
+    \foreach \num in {1,2,3} {
+      \foreach \colour [count=\ci] in {rs,gs,ps} {
+        \node[card] at (\num*2in,\ci*2.75in) {\tikz{
+            \foreach \i in {1,...,\num} {
+              \node[\shape,\colour] at (0,\i*.6in) {};}}};
+      }
+      \node[card] at (8in,\num*2.75in) {\tikz{
+          \foreach \i in {1,...,\num} {
+            \node[\shape,pf] at (0,\i*.6in) {};}}};
+    }
+  \end{tikzpicture}
+  \newline
+}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
