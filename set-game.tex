@@ -22,12 +22,6 @@
 }
 
 \makeatletter
-% \dimendef\my@xa=0
-% \dimendef\my@ya=0
-% \dimendef\my@xb=0
-% \dimendef\my@yb=0
-% \dimendef\my@xc=0
-% \dimendef\my@yc=0
 \pgfdeclareshape{squiggle}{
   \inheritsavedanchors[from=rectangle]
   \inheritanchorborder[from=rectangle]
@@ -36,76 +30,38 @@
   \inheritanchor[from=rectangle]{north east}
   \backgroundpath{
     \southwest
-    \pgfmathsetlengthmacro\my@xa{\pgf@x}
+    \pgfmathsetlengthmacro\my@xa{0.7*\pgf@x}
     \pgfmathsetlengthmacro\my@ya{\pgf@y}
     \northeast
-    \pgfmathsetlengthmacro\my@xb{\pgf@x}
+    \pgfmathsetlengthmacro\my@xb{0.7*\pgf@x}
     \pgfmathsetlengthmacro\my@yb{\pgf@y}
-    % main path
-    \pgfpathmoveto{\pgfpoint{\my@xa}{\my@ya}}
+    % northwest
+    \pgfmathsetlengthmacro\my@xc{\my@xa}
+    \pgfmathsetlengthmacro\my@yc{0.7*\my@yb}
+    % first half of the path
+    \pgfpathmoveto{
+      \pgfpoint{\my@xa}{\my@ya}}
     \pgfpathcurveto{
-      % assuming the centre of the rectangle is 0,0
-      \pgfpoint{1.1*\my@xa}{\my@ya/3}}{
-      \pgfpoint{0.9*\my@xa}{\my@yb/3}}{
-      \pgfpoint{\my@xa}{\my@yb}}
-    \pgfpathlineto{\pgfpoint{\my@xb}{\my@yb}}
-    \pgfpathlineto{\pgfpoint{\my@xb}{\my@ya}}
+      \pgfpoint{1.8*\my@xa}{1.7*\my@ya}}{
+      \pgfpoint{1.2*\my@xc}{0.74*\my@yc}}{
+      \pgfpoint{\my@xc}{\my@yc}}
+    \pgfpathcurveto{
+      \pgfpoint{\my@xc/3}{2.2*\my@yc}}{
+      \pgfpoint{\my@xb/3}{0.4*\my@yc}}{
+      \pgfpoint{\my@xb}{\my@yb}}
+    % southeast
+    \pgfmathsetlengthmacro\my@xc{\my@xb}
+    \pgfmathsetlengthmacro\my@yc{0.7*\my@ya}
+    % second half of the path
+    \pgfpathcurveto{
+      \pgfpoint{1.8*\my@xb}{1.7*\my@yb}}{
+      \pgfpoint{1.2*\my@xc}{0.74*\my@yc}}{
+      \pgfpoint{\my@xc}{\my@yc}}
+    \pgfpathcurveto{
+      \pgfpoint{\my@xc/3}{2.2*\my@yc}}{
+      \pgfpoint{\my@xa/3}{0.4*\my@yc}}{
+      \pgfpoint{\my@xa}{\my@ya}}
     \pgfpathclose
-    % % \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
-    % % \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
-    % \southwest
-    % % \edef\my@xa{\pgf@x}
-    % % \edef\my@ya{\pgf@y}
-    % % \dimendef\my@xa=\pgf@x
-    % % \dimendef\my@ya=\pgf@y
-    % \pgfmathsetlength\my@xa{\pgf@x}
-    % \pgfmathsetlength\my@ya{\pgf@y}
-    % \northeast
-    % % \edef\my@xb{\pgf@x}
-    % % \edef\my@yb{\pgf@y}
-    % % \dimendef\my@xb=\pgf@x
-    % % \dimendef\my@yb=\pgf@y
-    % \pgfmathsetlength\my@xb{\pgf@x}
-    % \pgfmathsetlength\my@yb{\pgf@y}
-    % % northwest
-    % % \pgf@xc=\pgf@xa
-    % % \pgf@yc=.8\pgf@yb
-    % % \edef\my@xc{\pgf@xa}
-    % % \edef\my@yc{.8*\pgf@yb}
-    % % \dimendef\my@xc=\my@xa
-    % % \dimendef\my@yc=.8\my@yb
-    % \pgfmathsetlength\my@xc{\my@xa}
-    % \pgfmathsetlength\my@yc{.8\my@yb}
-    % % first half of the path
-    % \pgfpathmoveto{
-    %   \pgfpoint{\my@xa}{\my@ya}}
-    % \pgfpathcurveto{
-    %   \pgfpoint{1.1*\my@xa}{1.1*\my@ya}}{
-    %   \pgfpoint{1.1*\my@xc}{\my@yc}}{
-    %   \pgfpoint{\my@xc}{\my@yc}}
-    % \pgfpathcurveto{
-    %   \pgfpoint{\my@xc}{1.1*\my@yc}}{
-    %   \pgfpoint{\my@xb}{0.9*\my@yc}}{
-    %   \pgfpoint{\my@xb}{\my@yb}}
-    % % southeast
-    % % \pgf@xc=\pgf@xb
-    % % \pgf@yc=.8\pgf@ya
-    % % \edef\my@xc{\pgf@xb}
-    % % \edef\my@yc{.8*\pgf@ya}
-    % % \dimendef\my@xc=\my@xb
-    % % \dimendef\my@yc=.8\my@ya
-    % \pgfmathsetlength\my@xc{\my@xb}
-    % \pgfmathsetlength\my@yc{.8\my@ya}
-    % % second half of the path
-    % \pgfpathcurveto{
-    %   \pgfpoint{1.1*\my@xb}{1.1*\my@yb}}{
-    %   \pgfpoint{1.1*\my@xc}{\my@yc}}{
-    %   \pgfpoint{\my@xc}{\my@yc}}
-    % \pgfpathcurveto{
-    %   \pgfpoint{\my@xc}{1.1*\my@yc}}{
-    %   \pgfpoint{\my@xa}{0.9*\my@yc}}{
-    %   \pgfpoint{\my@xa}{\my@ya}}
-    % \pgfpathclose
   }
 }
 \makeatother
