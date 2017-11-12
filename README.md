@@ -1,6 +1,6 @@
 ## Set game
 
-TikZ code to generate the full set of cards of card game [Set](https://en.wikipedia.org/wiki/Set_(game)) for self-printing.
+TikZ code to generate the full set of cards needed to play [Set](https://en.wikipedia.org/wiki/Set_(game)).
 
 The cards look like these:
 
